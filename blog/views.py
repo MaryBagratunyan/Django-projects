@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, get_object_or_404, render
 from django.contrib.auth.decorators import user_passes_test
+from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView
 
 from .models import Post
 from .forms import PostForm, CommentForm
@@ -24,3 +26,14 @@ def view_post(request, slug):
         comment.post = post
         comment.save()
     return render(request, 'blog/blog_post.html', {'post': post, 'form': form})
+
+
+class PostList(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+
+
+class PostUpdate(UpdateView):
+    model = Post
+    fields = ['text']
+    template_name = 'blog/add_post.html'

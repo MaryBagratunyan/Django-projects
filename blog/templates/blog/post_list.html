@@ -1,0 +1,14 @@
+{% if object_list %}
+    <h1>All Posts:</h1>
+<ul>
+    {% for post in object_list %}
+    <li>
+        <a href="{% url 'blog_post_detail' post.slug %}">{{ post }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+    <h1>No Recent Posts!</h1>
+{% endif %}
+
+<a href="{% url 'blog_post_add' %}">Add Post</a>
