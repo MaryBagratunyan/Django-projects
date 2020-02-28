@@ -25,6 +25,13 @@ def view_post(request, slug):
         comment = form.save(commit=False)
         comment.post = post
         comment.save()
+        request.session['name'] = comment.name
+        request.session['email'] = comment.email
+        request.session['website'] = comment.website
+
+    form.initial['name'] = request.session.get('name')
+    form.initial['email'] = request.session.get('email')
+    form.initial['website'] = request.session.get('website')
     return render(request, 'blog/blog_post.html', {'post': post, 'form': form})
 
 
